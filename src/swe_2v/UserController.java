@@ -26,4 +26,14 @@ public class UserController {
 	     }
 		 return false;
 	 }
+	 public boolean BuyProductFormSystem(String s) throws IOException {
+		 ProductDB pd = new ProductDB();
+		 pd.set();
+		 Product p = new Product();
+		 p.setName(s);
+		 if(pd.SearchProduct(p)) {
+			 return true;
+	     }
+		 return false;
+	 }	 
 }

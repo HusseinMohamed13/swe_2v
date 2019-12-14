@@ -5,13 +5,14 @@ public class User {
      private String Password;
      private String Usertype;
      private String ID;
-     
+     private int NumberOfbuyProducts;
      
      public User() {
     	  Username="";
     	  Password="";
     	  Usertype="";
     	  ID="";
+    	  NumberOfbuyProducts = 0;
      }
      public User(String username,String password,String usertype,String id) {
    	  Username=username;
@@ -43,5 +44,10 @@ public class User {
 	 public String getID() {
 			return ID;
 	 }
-	     
+	 public int getNumberOfbuyProducts() {
+		 return NumberOfbuyProducts;
+	 }
+	 public void setNumberOfbuyProducts(int numberofbuyproduct) {
+		 this.NumberOfbuyProducts=numberofbuyproduct;
+	 }    
 }

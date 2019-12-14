@@ -42,38 +42,4 @@ public class StoreOwner {
 	public void AddCollaborator(Collaborators c,Store s) throws IOException {
 		s.AddCollaborator(c,s);
 	}
-	
-	public void UndoCollaboratorPrductAction(Collaborators c) throws IOException
-	{
-
-		String[] history = new String[10];
-		String[] parsedData = new String[10];
-		history = c.getHistory();
-		for(int i =0 ;i<history.length ; i++)
-		{
-			parsedData = history[i].split("/");
-			if(parsedData[0]=="Add product")
-			{
-				//so we will the delete the product he added to the database
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
-				x.DeleteProduct(parsedData[1]);
-			}
-			if(parsedData[0]=="Edit product")
-			{
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
-				int price = Integer.parseInt(parsedData[2]);
-				x.editProduct(parsedData[1], price);
-			}
-			if(parsedData[0]=="Delete product")
-			{
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
-			   int price = Integer.parseInt(parsedData[3]);
-			   int quantity = Integer.parseInt(parsedData[6]);
-			   Product p = new Product(parsedData[1],parsedData[2],price,parsedData[4],parsedData[5],quantity);
-			   x.AddProduct(p);		
-			}
-		}
-		
-		
-	}
 }
