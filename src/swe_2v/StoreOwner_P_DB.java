@@ -1,9 +1,5 @@
 package swe_2v;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class StoreOwner_P_DB {
@@ -32,6 +28,11 @@ public class StoreOwner_P_DB {
     	 ld.AddProductToStoreOwner_P_DB(p);
     	 ListOfProducts[size++]=p;
      }
+     public void editProduct(String nameOftheProduct , int price)
+     {
+    	 Product x = new Product();
+    	x= this.GetProduct(nameOftheProduct);
+     }
      public boolean SearchProduct(String s) {
     	 for(int x=0;x<size;x++) {
     		 if(ListOfProducts[x].Name.equals(s)) {
@@ -48,6 +49,9 @@ public class StoreOwner_P_DB {
     	 }
     	 return null ;
      }
+     public void DeleteProduct(String nameOftheProduct) throws IOException
+     {
+    	 LoadDB ld = new LoadDB();
+    	 ld.DeleteTheProduct(nameOftheProduct);
+     }
 }
-
-
