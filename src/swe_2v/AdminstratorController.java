@@ -31,19 +31,17 @@ public class AdminstratorController {
 		 return false;
 		 }
 	 }
-	public void AddStatistics() throws IOException {
+	public void AddStatistics(StoreOwner so) throws IOException {
 		UserDB ud = new UserDB();
 		ud.set();
 		int numberOfusers=ud.Getsize();
 		ProductDB pd = new ProductDB();
 		ud.set();
 		int numberOfproducts=pd.Getsize();
-	
 		Random rand = new Random();
 		int []ArrayofOffers = null;
 		for(int x=0;x<numberOfproducts/2;x++) {
 			ArrayofOffers[x]=rand.nextInt(100);
 		}
-		
 	} 
 }

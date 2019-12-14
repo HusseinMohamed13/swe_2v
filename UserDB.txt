@@ -1,5 +1,6 @@
-hussein/6011/customer
-zaid/6012/customer
-mostafa/6029/customer
-ahmed/6000/customer
-mohamed/6022/customer
+hussein/6011/customer/1
+zaid/6012/customer/4
+mostafa/6029/customer/5
+ahmed/6000/customer/2
+mohamed/6022/customer/7
+yousef/6055/storeowner/16
