@@ -1,7 +1,9 @@
 package swe_2v;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -126,7 +128,7 @@ public class LoadDB {
      	 File file=new File("");
           String s1 ;
           s1 = file.getAbsolutePath();
-          FileReader fr = new FileReader(s+"\\"+"StoresDB.txt");
+          FileReader fr = new FileReader(s1+"\\"+"StoresDB.txt");
           BufferedReader br = new BufferedReader(fr);
           //FileWriter fw = new FileWriter(, true);
           String list[];
@@ -221,4 +223,114 @@ public class LoadDB {
         System.out.println("Register Successfully");
     }
 	
+
+public void AddtohistoryDB(String []history) throws IOException
+{
+	File file=new File("");
+    String s ;
+    s = file.getAbsolutePath();
+    FileWriter fw = new FileWriter(s+"\\"+"historyDB.txt", true);
+    for(int i=0;i<history.length;i++)
+    {
+    	fw.write(history[i] +"\r\n");
+    }
+    fw.flush();
+    fw.close();
+}
+public void DeleteTheProduct(String nameOftheProduct) throws IOException
+{
+    File file=new File("");
+    String s ;
+    s = file.getAbsolutePath();
+    File inputFile = new File("StoreOwner_P_DB.txt");
+    File tempFile = new File("myTempFile.txt");
+
+    FileReader fr = new FileReader(s+"\\" + "StoreOwner_P_DB.txt");
+    BufferedReader br = new BufferedReader(fr);
+    FileWriter fw = new FileWriter(s+"\\"+"myTempFile.txt", true);
+    String currentLine;
+    String list[];
+    while((currentLine = br.readLine()) != null) {
+        list = currentLine.split("/");
+        if(list[0]!=nameOftheProduct) {
+        fw.write(currentLine);
+        fw.write("\r\n");
+        }
+    }
+    fw.flush();
+    fw.close(); 
+    fr.close(); 
+    tempFile.renameTo(inputFile);
+    inputFile.delete();
+
+}
+public void editProduct(String nameOftheProuct,int Price) throws IOException
+{
+	File file=new File("");
+    String s1;
+    s1 = file.getAbsolutePath();
+    FileReader fr = new FileReader(s1+"\\"+"StoreOwner_P_DB.txt");
+    BufferedReader br = new BufferedReader(fr);
+    //FileWriter fw = new FileWriter(, true);
+    String list[];
+    while ((s1 = br.readLine()) != null) { // read a line
+ 	list = s1.split("/");
+ 	if(list[0].equals(nameOftheProuct)){
+ 	    FileWriter fw = new FileWriter(s1+"\\"+"StoreOwner_P_DB.txt", false);
+         int x=0;
+        int Oldprice = Integer.parseInt(list[2]);
+        Oldprice = Price;
+        list[2] = Integer.toString(Oldprice);
+ 	    while(list[x++]!=null) {
+ 	    	fw.write(list[x]+"/");
+ 	    }
+ 	    fw.write("\r\n");
+         fw.flush();
+         fw.close();
+ 		break;
+ 	}
+   	//Store obj = new Store(list[0],list[1],list[2],list[3]);
+    }
+    br.close(); 
+	
+}
+public void addOffer(String nameOftheProduct,int Offer) throws IOException
+{
+	 File file=new File("");
+     String s ;
+     s = file.getAbsolutePath();
+     FileWriter fw = new FileWriter(s+"\\"+"Offer.txt", true);
+     fw.write(nameOftheProduct + "/" + Offer);   
+	
+}
+public void editOffer(String nameOftheProduct,int Offer) throws IOException
+{
+	File file=new File("");
+    String s1;
+    s1 = file.getAbsolutePath();
+    FileReader fr = new FileReader(s1+"\\"+"Offer.txt");
+    BufferedReader br = new BufferedReader(fr);
+    //FileWriter fw = new FileWriter(, true);
+    String list[];
+    while ((s1 = br.readLine()) != null) { // read a line
+ 	list = s1.split("/");
+ 	if(list[0].equals(nameOftheProduct)){
+ 	    FileWriter fw = new FileWriter(s1+"\\"+"Offer.txt", false);
+         int x=0;
+        int OldOffer = Integer.parseInt(list[1]);
+        OldOffer = Offer;
+        list[2] = Integer.toString(OldOffer);
+ 	    while(list[x++]!=null) {
+ 	    	fw.write(list[x]+"/");
+ 	    }
+ 	    fw.write("\r\n");
+         fw.flush();
+         fw.close();
+ 		break;
+ 	}
+   	//Store obj = new Store(list[0],list[1],list[2],list[3]);
+    }
+    br.close(); 
+	
+}
 }

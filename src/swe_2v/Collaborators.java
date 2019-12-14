@@ -78,8 +78,8 @@ public class Collaborators {
 		}
 		public void ShowStatistics() {
 			activity[size++]="Show Statistics";
-		    System.out.println("number of users viewed the storeâ€™s products : "+nOfUsersViewedStoresProduct);
-		    System.out.println("number of user buy a storeâ€™s produce : "+nOfUsersBuyStoresProducts);
+		    System.out.println("number of users viewed the store’s products : "+nOfUsersViewedStoresProduct);
+		    System.out.println("number of user buy a store’s produce : "+nOfUsersBuyStoresProducts);
 		    System.out.println("current sold out products  : "+SoldOutProducts);
 		}	
 		
