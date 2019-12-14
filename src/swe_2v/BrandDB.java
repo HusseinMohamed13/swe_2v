@@ -18,33 +18,17 @@ public class BrandDB {
    	 }
     }
     public void set() throws IOException {
-   	 File file=new File("");
-        String s ;
-        s = file.getAbsolutePath();
-   	 FileReader fr = new FileReader(s+"\\"+"BrandsDB.txt");
-        BufferedReader br = new BufferedReader(fr);
-        //FileWriter fw = new FileWriter(, true);
-        String s1;
-        int x=0;
-        String list[];
-        while ((s1 = br.readLine()) != null) { // read a line
-       	list = s1.split("/");
-       	Brand obj = new Brand(list[0],list[1]);
-       	ListOfBrands[x++]=obj;
-       	size++;
-        }
-        br.close();
+        LoadDB ld = new LoadDB();
+        ListOfBrands = ld.setBrandDB();
+        size = ld.GetSize();
     }
     
     public void AddBrand(Brand b) throws IOException  {
-   	 ListOfBrands[size++]=b;
-   	 File file=new File("");
-        String s ;
-        s = file.getAbsolutePath();
-        FileWriter fw = new FileWriter(s+"\\"+"BrandDB.txt", true);
-        fw.write(b.getName()+"/"+b.getCategory()+"\r\n");
-        fw.flush();
-        fw.close();
+   	    LoadDB ld = new LoadDB();
+   	    ListOfBrands = ld.setBrandDB();
+        size = ld.GetSize();
+        ld.AddToBrandDB(b);
+   	    ListOfBrands[size++]=b;
     }
    /* public boolean SearchBrand(Brand b) {
    	 for(int x=0;x<size;x++) {

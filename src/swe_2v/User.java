@@ -4,16 +4,20 @@ public class User {
      private String Username;
      private String Password;
      private String Usertype;
+     private String ID;
+     
      
      public User() {
     	  Username="";
     	  Password="";
     	  Usertype="";
+    	  ID="";
      }
-     public User(String username,String password,String usertype) {
+     public User(String username,String password,String usertype,String id) {
    	  Username=username;
    	  Password=password;
       Usertype=usertype;
+      ID=id;
      }
      public void setUsername(String username) {
  		Username = username;
@@ -33,6 +37,11 @@ public class User {
 	 public String getUsertype() {
 		return Usertype;
 	 }
-	
-     
+	 public void setID(String id) {
+			ID = id;
+   	 } 
+	 public String getID() {
+			return ID;
+	 }
+	     
 }
