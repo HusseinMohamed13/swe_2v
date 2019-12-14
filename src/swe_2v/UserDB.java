@@ -22,34 +22,16 @@ public class UserDB {
     	 return size;
      }
      public void set() throws IOException {
-    	 File file=new File("");
-         String s ;
-         s = file.getAbsolutePath();
-    	 FileReader fr = new FileReader(s+"\\"+"UserDB.txt");
-         BufferedReader br = new BufferedReader(fr);
-         //FileWriter fw = new FileWriter(, true);
-         String s1;
-         String list[];
-         int x=0;
-         while ((s1 = br.readLine()) != null) { // read a line
-        	list = s1.split("/");
-        	User obj = new User(list[0],list[1],list[2]);
-           	Users[x]=obj;
-        	x++;
-        	size++;
-         }
-         br.close();
+    	 LoadDB ld = new LoadDB();
+    	 Users = ld.setUserDB();
+    	 size = ld.GetSize();
      }
      public void AddUser(User u) throws IOException {
+    	 LoadDB ld = new LoadDB();
+    	 Users = ld.setUserDB();
+    	 size = ld.GetSize();
+    	 ld.AddUserToUserDB(u);
     	 Users[size++]=u;
-    	 File file=new File("");
-         String s ;
-         s = file.getAbsolutePath();
-         FileWriter fw = new FileWriter(s+"\\"+"UserDB.txt", true);
-         fw.write(u.getUsername()+"/"+u.getPassword()+"/"+u.getUsertype()+"\r\n");
-         fw.flush();
-         fw.close();
-         System.out.println("Register Successfully");
      }
      public boolean SearchUser(User u) {
     	 for(int x=0;x<size;x++) {

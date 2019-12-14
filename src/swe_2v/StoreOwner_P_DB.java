@@ -1,9 +1,5 @@
 package swe_2v;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class StoreOwner_P_DB {
@@ -17,37 +13,25 @@ public class StoreOwner_P_DB {
     	 }
      }
      public void set() throws IOException {
-    	 File file=new File("");
-         String s ;
-         s = file.getAbsolutePath();
-    	 FileReader fr = new FileReader(s+"\\"+"StoreOwner_P_DB.txt");
-         BufferedReader br = new BufferedReader(fr);
-         //FileWriter fw = new FileWriter(, true);
-         String s1;
-         int x=0;
-         String list[];
-         while ((s1 = br.readLine()) != null) { // read a line
-        	list = s1.split("/");
-        	int price = Integer.parseInt(list[2]);
-        	int Quantity = Integer.parseInt(list[5]);
-        	Product obj = new Product(list[0],list[1],price,list[3],list[4],Quantity);
-        	ListOfProducts[x++]=obj;
-        	size++;
-         }
-         br.close();
+    	 LoadDB ld = new LoadDB();
+    	 ListOfProducts = ld.setStoreOwner_P_DB();
+    	 size = ld.GetSize();
      }
      
      public void AddProduct(Product p) throws IOException  {
+    	 LoadDB ld = new LoadDB();
+    	 ListOfProducts = ld.setStoreOwner_P_DB();
+    	 /*if (p.getPrice() > 100 ) {
+    		 return false;
+    	 }*/
+    	 size = ld.GetSize();    	 
+    	 ld.AddProductToStoreOwner_P_DB(p);
     	 ListOfProducts[size++]=p;
-    	 File file=new File("");
-         String s ;
-         s = file.getAbsolutePath();
-         FileWriter fw = new FileWriter(s+"\\"+"StoreOwner_P_DB.txt", true);
-         String str = Integer.toString(p.getPrice()); 
-         String str1 = Integer.toString(p.getQuantity());
-         fw.write(p.getName()+"/"+p.getID()+"/"+str+"/"+p.getCategory()+"/"+p.getBrandName()+"/"+str1+"\r\n");
-         fw.flush();
-         fw.close();
+     }
+     public void editProduct(String nameOftheProduct , int price)
+     {
+    	 Product x = new Product();
+    	x= this.GetProduct(nameOftheProduct);
      }
      public boolean SearchProduct(String s) {
     	 for(int x=0;x<size;x++) {
@@ -64,5 +48,10 @@ public class StoreOwner_P_DB {
     		 }
     	 }
     	 return null ;
+     }
+     public void DeleteProduct(String nameOftheProduct) throws IOException
+     {
+    	 LoadDB ld = new LoadDB();
+    	 ld.DeleteTheProduct(nameOftheProduct);
      }
 }
