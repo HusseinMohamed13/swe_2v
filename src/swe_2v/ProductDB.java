@@ -37,5 +37,10 @@ public class ProductDB {
     		 }
     	 }
     	 return false;
-     }     
+     } 
+     public void DeleteProduct(String nameOftheProduct) throws IOException
+     {
+    	 LoadDB ld = new LoadDB();
+    	 ld.DeleteTheProduct(nameOftheProduct);
+     }
 }
