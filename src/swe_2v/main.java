@@ -42,12 +42,17 @@ public class main {
 	 	    if(uc.Login(u, ud)) {
 	 	    	System.out.println("Login Successfully");
 	 	    	if(u.getUsertype().equals("customer")) {
+	 	    	    while(true) {	
 	 	    		System.out.println("Please enter 1 to search product:");
-		 			Scanner sc9 = new Scanner(System.in);
+	 	    		System.out.println("Please enter 2 to search product in System:");
+	 	    		Scanner sc9 = new Scanner(System.in);
 		 			int x1;
 		 			x1 = sc9.nextInt();
+		 			Scanner sc93 = new Scanner(System.in);
+		 			switch(x1) {
+		 			case 1:
 	 				System.out.println("Please enter name to search:");
-	 				String s90=sc9.nextLine();
+	 				String s90=sc93.nextLine();
 	 				if(uc.BuyProduct(s90)) {
 	 				    StoreOwner_P_DB pd = new StoreOwner_P_DB();
 	 				    Product p2;
@@ -57,22 +62,67 @@ public class main {
 	 				    System.out.println("Please Enter Quantity");
 	 				    int q = sc.nextInt();
 	 				    if(q<=p2.getQuantity()) {
+	 				    u.setNumberOfbuyProducts(q);	
 	 				 	Scanner sc121 = new Scanner(System.in);	 
 	 			        System.out.println("Please Enter ShippingAddress");
 	 			        String ShippingAddress;
 	 		    	    ShippingAddress = sc121.nextLine();
+	 		    	    int totalprice = p2.getPrice()*q;
+	 		    	    if(q>=2) {
+	 		    	      totalprice-=totalprice*0.1;	
+	 		    	    }
+	 		    	    if(u.getNumberOfbuyProducts()==0) {
+	 		    	      totalprice-=totalprice*0.05; 	
+	 		    	    }
+	 		    	    System.out.println("Total Price :"+totalprice);
 	 			        System.out.println("Product will ship to you within 7 days");
 	 				    }else {System.out.println("Out Of Stock");}	
 	 				}else {
 	 				 System.out.println("Not Found");
 	 			    }
+	 				    break;
+		 			case 2:
+		 				System.out.println("Please enter name to search:");
+		 				String s91=sc93.nextLine();
+		 				ProductDB pd1 = new ProductDB();
+		 				pd1.set();
+		 				if(uc.BuyProductFormSystem(s91)) {
+		 				    Product p2;
+		 			     	p2 = pd1.GetProduct(s91);
+		 					Scanner sc10 = new Scanner(System.in);
+		 				    System.out.println("Please Enter Quantity");
+		 				    int q = sc.nextInt();
+		 				    if(q<=p2.getQuantity()) {
+		 				    u.setNumberOfbuyProducts(q); 	
+		 				 	Scanner sc121 = new Scanner(System.in);	 
+		 			        System.out.println("Please Enter ShippingAddress");
+		 			        String ShippingAddress;
+		 		    	    ShippingAddress = sc121.nextLine();
+		 		    	    int totalprice = p2.getPrice()*q;
+		 		    	    if(q>=2) {
+			 		    	      totalprice-=totalprice*0.1;	
+			 		        }
+			 		    	if(u.getNumberOfbuyProducts()==0) {
+			 		    	      totalprice-=totalprice*0.05; 	
+			 		    	}
+		 		    	    System.out.println("Total Price :"+totalprice);
+		 			        System.out.println("Product will ship to you within 7 days");
+		 				    }else {System.out.println("Out Of Stock");}	
+		 				}else {
+		 				 System.out.println("Not Found");
+		 			    }
+		 				break;
+		 			}
+	 	    		}
 	 	    	}
 	 	    	else if(u.getUsertype().equals("storeowner")) {
 	 	    		while(true) {
-	 	    		System.out.println("Please enter 1 to addproduct as storeOwner:");
-			 		System.out.println("Please enter 2 to addnewstore as storeOwner:");
-			 		System.out.println("Please enter 3 to show statistics as storeOwner:");	
-	 	    		Scanner sc91 = new Scanner(System.in);
+	 	    		System.out.println("Please enter 1 to addproduct :");
+			 		System.out.println("Please enter 2 to addnewstore :");
+			 		System.out.println("Please enter 3 to show statistics :");	
+			 		System.out.println("Please enter 4 to add Collabrator :");
+			 		System.out.println("Please enter 5 to search product in System:");
+			 		Scanner sc91 = new Scanner(System.in);
 		 			int x2;
 		 			x2 = sc91.nextInt();
 		 			switch(x2) {
@@ -125,6 +175,49 @@ public class main {
 		 				break;
 		 			case 3:
 		 				so.ShowStatistics();
+		 				break;
+		 			case 4:
+		 				System.out.println("Enter Collaborator Id");
+		 				Scanner sc87 = new Scanner(System.in);
+		 				String s23 = sc87.next();
+		 				Collaborators c = new Collaborators(s23);
+		 				System.out.println("Enter Store Name");
+		 				s23 = sc87.next();
+		 				Store s31 = new Store();
+		 				so.AddCollaborator(c, s31);
+		 				break;
+		 			case 5:
+		 				System.out.println("Please enter name to search:");
+		 				Scanner sc93 = new Scanner(System.in);
+						String s90=sc93.nextLine();
+		 				if(uc.BuyProduct(s90)) {
+		 				    ProductDB pd = new ProductDB();
+		 				    Product p2;
+		 				    pd.set();
+		 			     	p2 = pd.GetProduct(s90);
+		 					Scanner sc10 = new Scanner(System.in);
+		 				    System.out.println("Please Enter Quantity");
+		 				    int q = sc.nextInt();
+		 				    if(q<=p2.getQuantity()) {
+		 				    u.setNumberOfbuyProducts(q);	
+		 				 	Scanner sc121 = new Scanner(System.in);	 
+		 			        System.out.println("Please Enter ShippingAddress");
+		 			        String ShippingAddress;
+		 		    	    ShippingAddress = sc121.nextLine();
+		 		    	    int totalprice = p2.getPrice()*q;
+		 		    	    if(q>=2) {
+			 		    	      totalprice-=totalprice*0.1;	
+			 		        }
+			 		    	if(u.getNumberOfbuyProducts()==0) {
+			 		    	      totalprice-=totalprice*0.05; 	
+			 		    	}
+			 		    	totalprice-=totalprice*0.3;
+		 		    	    System.out.println("Total Price :"+totalprice);
+		 			        System.out.println("Product will ship to you within 7 days");
+		 				    }else {System.out.println("Out Of Stock");}	
+		 				}else {
+		 				 System.out.println("Not Found");
+		 			    }
 		 				break;
 		 			default:	
 		 			}
