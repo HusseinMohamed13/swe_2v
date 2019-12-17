@@ -14,9 +14,9 @@ public class StoreOwner {
 		SoldOutProducts = 0;
     }
 	public void SetStatistics(int a,int b,int c) {
-		int nOfUsersViewedStoresProduct = a;
-	    int nOfUsersBuyStoresProducts = b;
-	    int SoldOutProducts = c;
+	    nOfUsersViewedStoresProduct = a;
+	    nOfUsersBuyStoresProducts = b;
+	    SoldOutProducts = c;
 	}
 	public boolean AddProduct(Product p) throws IOException {
 		AdminstratorController ac = new AdminstratorController();
@@ -35,8 +35,8 @@ public class StoreOwner {
 		}
 	}
 	public void ShowStatistics() {
-	    System.out.println("number of users viewed the store’s products : "+nOfUsersViewedStoresProduct);
-	    System.out.println("number of user buy a store’s produce : "+nOfUsersBuyStoresProducts);
+	    System.out.println("number of users viewed the store products : "+nOfUsersViewedStoresProduct);
+	    System.out.println("number of user buy a store produce : "+nOfUsersBuyStoresProducts);
 	    System.out.println("current sold out products  : "+SoldOutProducts);
 	}
 	public void AddCollaborator(Collaborators c,Store s) throws IOException {
@@ -55,18 +55,18 @@ public class StoreOwner {
 			if(parsedData[0]=="Add product")
 			{
 				//so we will the delete the product he added to the database
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
+				StoreOwnerController x = new StoreOwnerController();
 				x.DeleteProduct(parsedData[1]);
 			}
 			if(parsedData[0]=="Edit product")
 			{
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
+				StoreOwnerController x = new StoreOwnerController();
 				int price = Integer.parseInt(parsedData[2]);
 				x.editProduct(parsedData[1], price);
 			}
 			if(parsedData[0]=="Delete product")
 			{
-				StoreOwner_P_DB x = new StoreOwner_P_DB();
+				StoreOwnerController x = new StoreOwnerController();
 			   int price = Integer.parseInt(parsedData[3]);
 			   int quantity = Integer.parseInt(parsedData[6]);
 			   Product p = new Product(parsedData[1],parsedData[2],price,parsedData[4],parsedData[5],quantity);

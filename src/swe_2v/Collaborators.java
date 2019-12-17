@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Collaborators{
-	    private int name;
+	    private String name;
 	    private int nOfUsersViewedStoresProduct;
 	    private int nOfUsersBuyStoresProducts;
 	    private int SoldOutProducts;
@@ -19,6 +19,12 @@ public class Collaborators{
 			SoldOutProducts = 0;
 			size=0;
 	    }
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getName() {
+			return this.name;
+		}
 		public String[] getHistory()
 		{
 			return history;
@@ -55,7 +61,7 @@ public class Collaborators{
 			System.out.println("Please Enter Quantity");
 			int q = sc.nextInt(); 
 			p.setQuantity(q);
-			StoreOwner_P_DB pd = new StoreOwner_P_DB();
+			StoreOwnerController pd = new StoreOwnerController();
 			pd.AddProduct(p);
 			System.out.println("Product Added");	
 			activity[size++]="Add product";
@@ -72,7 +78,7 @@ public class Collaborators{
 		public void editProduct(String nameOftheProduct,int Price)
 		{
 			Product p = new Product();
-			StoreOwner_P_DB x = new StoreOwner_P_DB();
+			StoreOwnerController x = new StoreOwnerController();
 			//updated price
 		    p = x.GetProduct(nameOftheProduct);
 		    int tempPrice = p.Price;
@@ -83,7 +89,7 @@ public class Collaborators{
 		public void deleteProduct(String nameOftheProduct) throws IOException
 		{
 			Product p = new Product();
-			StoreOwner_P_DB x = new StoreOwner_P_DB();
+			StoreOwnerController x = new StoreOwnerController();
 			p = x.GetProduct(nameOftheProduct);
 			x.DeleteProduct(nameOftheProduct);
 			  String str = Integer.toString(p.getPrice()); 

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class main {
-	static UserDB ud =new UserDB();   
+	static UserDBController ud =new UserDBController();   
     static UserController uc = new UserController();
 	static AdminstratorController ac = new AdminstratorController();
 	static StoreOwner so = new StoreOwner();
@@ -18,11 +18,7 @@ public class main {
 		System.out.println("Please enter 2 to register as customer or storeOwner:");
 		System.out.println("Please enter 3 to addproduct as adminstrator:");
 		System.out.println("Please enter 4 to addbrand as adminstrator:");
-		/*System.out.println("Please enter 5 to addproduct as storeOwner:");
-		System.out.println("Please enter 6 to addnewstore as storeOwner:");
-		System.out.println("Please enter 7 to show statistics as storeOwner:");
- 		System.out.println("Please enter 8 to search product:");*/
-		System.out.println("Please enter 9 to add statistics as adminstrator:");
+		System.out.println("Please enter 5 to add statistics as adminstrator:");
 		
 		x=sc.nextInt();
 		switch(x) {
@@ -54,7 +50,7 @@ public class main {
 	 				System.out.println("Please enter name to search:");
 	 				String s90=sc93.nextLine();
 	 				if(uc.BuyProduct(s90)) {
-	 				    StoreOwner_P_DB pd = new StoreOwner_P_DB();
+	 				    StoreOwnerController pd = new StoreOwnerController();
 	 				    Product p2;
 	 				    pd.set();
 	 			     	p2 = pd.GetProduct(s90);
@@ -84,7 +80,7 @@ public class main {
 		 			case 2:
 		 				System.out.println("Please enter name to search:");
 		 				String s91=sc93.nextLine();
-		 				ProductDB pd1 = new ProductDB();
+		 				ProductController pd1 = new ProductController();
 		 				pd1.set();
 		 				if(uc.BuyProductFormSystem(s91)) {
 		 				    Product p2;
@@ -116,12 +112,14 @@ public class main {
 	 	    		}
 	 	    	}
 	 	    	else if(u.getUsertype().equals("storeowner")) {
-	 	    		while(true) {
+	 	    		boolean exit = false;
+	 	    		while(!exit) {
 	 	    		System.out.println("Please enter 1 to addproduct :");
 			 		System.out.println("Please enter 2 to addnewstore :");
 			 		System.out.println("Please enter 3 to show statistics :");	
 			 		System.out.println("Please enter 4 to add Collabrator :");
 			 		System.out.println("Please enter 5 to search product in System:");
+			 		System.out.println("Please enter 6 to Exit:");
 			 		Scanner sc91 = new Scanner(System.in);
 		 			int x2;
 		 			x2 = sc91.nextInt();
@@ -146,11 +144,9 @@ public class main {
 		 				System.out.println("Please Enter Quantity");
 		 				int q = sc.nextInt(); 
 		 				p1.setQuantity(q);
-		 				StoreOwner_P_DB pd = new StoreOwner_P_DB();
+		 				StoreOwnerController pd = new StoreOwnerController();
 		 				pd.AddProduct(p1);
 		 				System.out.println("Product Added");	
-		 				/*ProductDB obj = new ProductDB();
-		 				obj.AddProduct(p);*/
 		 				}else {
 		 					System.out.println("Permission denied");
 		 				}
@@ -166,7 +162,7 @@ public class main {
 		 				s73=sc8.nextLine();
 		 				Store ss = new Store(s71,s72,s73,u.getID());
 		 				if(so.AddStore(ss)) {
-		 					StoreDB obj = new StoreDB();
+		 					StoreController obj = new StoreController();
 		 					obj.AddStore(ss); 
 		 					System.out.println("Store added");
 		 					}else {
@@ -180,10 +176,12 @@ public class main {
 		 				System.out.println("Enter Collaborator Id");
 		 				Scanner sc87 = new Scanner(System.in);
 		 				String s23 = sc87.next();
-		 				Collaborators c = new Collaborators(s23);
+		 				Collaborators c = new Collaborators();
+		 				c.setName(s23);
 		 				System.out.println("Enter Store Name");
 		 				s23 = sc87.next();
 		 				Store s31 = new Store();
+		 				s31.setName(s23);
 		 				so.AddCollaborator(c, s31);
 		 				break;
 		 			case 5:
@@ -191,7 +189,7 @@ public class main {
 		 				Scanner sc93 = new Scanner(System.in);
 						String s90=sc93.nextLine();
 		 				if(uc.BuyProduct(s90)) {
-		 				    ProductDB pd = new ProductDB();
+		 				    ProductController pd = new ProductController();
 		 				    Product p2;
 		 				    pd.set();
 		 			     	p2 = pd.GetProduct(s90);
@@ -218,6 +216,9 @@ public class main {
 		 				}else {
 		 				 System.out.println("Not Found");
 		 			    }
+		 				break;
+		 			case 6:
+		 				exit = true;
 		 				break;
 		 			default:	
 		 			}
@@ -273,81 +274,7 @@ public class main {
 			Brand b = new Brand(s11,s12);
 			ac.AddBrand(b);
 			break;
-		/*case 5:
-			Scanner sc6 = new Scanner(System.in);
-			String s61,s62,s63;
-			int price6;
-			System.out.println("Please enter Product Name:");
-			s61=sc6.nextLine();
-			System.out.println("Please enter ID:");
-			s62=sc6.nextLine();
-			System.out.println("Please enter Price:");
-			price6=sc6.nextInt();
-			Scanner sc7 = new Scanner(System.in);
-			System.out.println("Please enter Category:");
-			s63=sc7.nextLine();
-			System.out.println("Please enter BrandName:");
-			String s6=sc7.nextLine();
-			Product p1 = new Product(s61,s62,price6,s63,s6,0);
-			if(so.AddProduct(p1)) {
-			System.out.println("Please Enter Quantity");
-			int q = sc.nextInt(); 
-			p1.setQuantity(q);
-			StoreOwner_P_DB pd = new StoreOwner_P_DB();
-			pd.AddProduct(p1);
-			//System.out.println("Product Added");	
-			//ProductDB obj = new ProductDB();
-			//obj.AddProduct(p);
-			}else {
-				System.out.println("Permission denied");
-			}
-			break;
-		case 6:
-			Scanner sc8 = new Scanner(System.in);
-			String s71,s72,s73;
-			System.out.println("Please enter Store Name:");
-			s71=sc8.nextLine();
-			System.out.println("Please enter Location:");
-			s72=sc8.nextLine();
-			System.out.println("Please enter Type:");
-			s73=sc8.nextLine();
-			Store ss = new Store(s71,s72,s73,u.getID());
-			if(so.AddStore(ss)) {
-				StoreDB obj = new StoreDB();
-				obj.AddStore(ss); 
-				System.out.println("Store added");
-				}else {
-					System.out.println("Permission denied");
-				}
-			break;
-		case 7:
-			so.ShowStatistics();
-			break;
-			*/
-		/*case 8:
-			Scanner sc9 = new Scanner(System.in);
-			System.out.println("Please enter name to search:");
-			String s90=sc9.nextLine();
-			if(uc.BuyProduct(s90)) {
-			    StoreOwner_P_DB pd = new StoreOwner_P_DB();
-			    Product p2;
-			    pd.set();
-		     	p2 = pd.GetProduct(s90);
-				Scanner sc10 = new Scanner(System.in);
-			    System.out.println("Please Enter Quantity");
-			    int q = sc.nextInt();
-			    if(q<=p2.getQuantity()) {
-			 	Scanner sc121 = new Scanner(System.in);	 
-		        System.out.println("Please Enter ShippingAddress");
-		        String ShippingAddress;
-	    	    ShippingAddress = sc121.nextLine();
-		        System.out.println("Product will ship to you within 7 days");
-			    }else {System.out.println("Out Of Stock");}	
-			}else {
-			 System.out.println("Not Found");
-		    }
-			break;*/
-		case 9:
+		case 5:
 			ac.AddStatistics(so);
 			break;	
 		default:			
