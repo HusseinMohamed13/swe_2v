@@ -9,11 +9,11 @@ public class AdminstratorController {
 		 
 	 } 
 	 public void AddProduct(Product p) throws IOException {
-		  ProductDB obj = new ProductDB();
+		  ProductController obj = new ProductController();
 		  obj.AddProduct(p);
 	 }
 	 public void AddBrand(Brand b) throws IOException {
-		  BrandDB obj = new BrandDB();
+		  BrandController obj = new BrandController();
 		  obj.AddBrand(b);
 	 }
 	 public boolean PermissionStore(Store s) {
@@ -23,7 +23,7 @@ public class AdminstratorController {
 		 return false;
 	 }
 	 public boolean PermissionProduct(Product p) throws IOException {
-		 ProductDB pd = new ProductDB();
+		 ProductController pd = new ProductController();
 		 pd.set();
 		 if(pd.SearchProduct(p)) {
 			 return true;
@@ -32,16 +32,15 @@ public class AdminstratorController {
 		 }
 	 }
 	public void AddStatistics(StoreOwner so) throws IOException {
-		UserDB ud = new UserDB();
+		UserDBController ud = new UserDBController();
 		ud.set();
 		int numberOfusers=ud.Getsize();
-		ProductDB pd = new ProductDB();
-		ud.set();
+		ProductController pd = new ProductController();
+		pd.set();
 		int numberOfproducts=pd.Getsize();
 		Random rand = new Random();
-		int []ArrayofOffers = null;
-		for(int x=0;x<numberOfproducts/2;x++) {
-			ArrayofOffers[x]=rand.nextInt(100);
-		}
+		int soldoutproducts = rand.nextInt(numberOfproducts/4);
+		System.out.println(numberOfusers+" "+numberOfproducts+" "+soldoutproducts);
+		so.SetStatistics(numberOfusers, numberOfproducts, soldoutproducts);
 	} 
 }

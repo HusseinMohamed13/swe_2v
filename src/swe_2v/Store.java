@@ -22,10 +22,11 @@ public class Store {
     	 Location=loc;
     	 Type=type;
     	 StoreOwnerID=storeownerid;
+    	 collaborators = new String[10];
     	 size=0;
      }
      public void AddCollaborator(Collaborators c,Store s) throws IOException {
- 		 StoreDB sd  =new StoreDB();
+ 		 StoreController sd  =new StoreController();
  		 sd.set();
  		 sd.AddCollabortors(c,s.getName());
  	 }
@@ -54,7 +55,8 @@ public class Store {
       	 return StoreOwnerID;
      }
      public void setcollaborators(String collaborators) {
-    	 this.collaborators[size++] = collaborators;
+    	 this.collaborators[size] = collaborators;
+    	 size++;
    	 }
      public String getcollaborators() {
       	 return collaborators[size];

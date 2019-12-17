@@ -8,18 +8,18 @@ public class UserController {
 	 public UserController() {
 		 
 	 }
-	 public boolean Login(User u,UserDB ud) {
+	 public boolean Login(User u,UserDBController ud) {
 		 if(ud.SearchUser(u)) {
 			 return true;
 		 }else {
 		 return false;
 		 }
 	 }
-	 public void Register(User u,UserDB ud) throws IOException {
+	 public void Register(User u,UserDBController ud) throws IOException {
 		 ud.AddUser(u);
 	 }
 	 public boolean BuyProduct(String s) throws IOException {
-		 StoreOwner_P_DB pd = new StoreOwner_P_DB();
+		 StoreOwnerController pd = new StoreOwnerController();
 		 pd.set();
 		 if(pd.SearchProduct(s)) {
 			 return true;
@@ -27,7 +27,7 @@ public class UserController {
 		 return false;
 	 }
 	 public boolean BuyProductFormSystem(String s) throws IOException {
-		 ProductDB pd = new ProductDB();
+		 ProductController pd = new ProductController();
 		 pd.set();
 		 Product p = new Product();
 		 p.setName(s);

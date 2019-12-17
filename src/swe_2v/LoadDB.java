@@ -85,28 +85,31 @@ public class  LoadDB {
 	        fw.close();
 	}
 	
-	public Store[] setStoreDB() throws IOException {
-		size=0; 
-	    Store[] ListOfStores = new Store[10];
-	    for(int x=0;x<10;x++) {
-   	    ListOfStores[x]=new Store();
-   	    } 
-		File file=new File("");
-	        String s ;
-	        s = file.getAbsolutePath();
-	   	 FileReader fr = new FileReader(s+"\\"+"StoresDB.txt");
-	        BufferedReader br = new BufferedReader(fr);
-	        //FileWriter fw = new FileWriter(, true);
-	        String s1;
-	        int x=0;
-	        String list[];
-	        while ((s1 = br.readLine()) != null) { // read a line
-	       	list = s1.split("/");
+    public Store[] setStoreDB() throws IOException {
+	   size=0; 
+       Store[] ListOfStores = new Store[10];
+       for(int x=0;x<10;x++) {
+        ListOfStores[x]=new Store();
+       } 
+	   File file=new File("");
+       String s ;
+       s = file.getAbsolutePath();
+       FileReader fr = new FileReader(s+"\\"+"StoresDB.txt");
+       BufferedReader br = new BufferedReader(fr);
+       //FileWriter fw = new FileWriter(, true);
+       String s1;
+       int x=0;
+       String list[];
+       while ((s1 = br.readLine()) != null) { // read a line
+    	    list = s1.split("/");
 	       	Store obj = new Store(list[0],list[1],list[2],list[3]);
-	        int x1=4;
-	       	while(list[x1++]!=null) {
+	        if(list.length>4) {
+	       	int x1=4;
+	       	while(x1<list.length) {
 	       		obj.setcollaborators(list[x1]);
+	       		x1++;
 	       	}
+	        }
 	       	ListOfStores[x++]=obj;
 	       	size++;
 	        }
@@ -125,29 +128,23 @@ public class  LoadDB {
     }
 	public void AddCollabortors(Collaborators c,String s) throws IOException  {
      	 File file=new File("");
-          String s1 ;
-          s1 = file.getAbsolutePath();
-          FileReader fr = new FileReader(s1+"\\"+"StoresDB.txt");
-          BufferedReader br = new BufferedReader(fr);
-          //FileWriter fw = new FileWriter(, true);
-          String list[];
-          while ((s1 = br.readLine()) != null) { // read a line
-       	list = s1.split("/");
-       	if(list[0].equals(s)) {
-       	    FileWriter fw = new FileWriter(s1+"\\"+"StoresDB.txt", false);
-               int x=0;
-       	    while(list[x++]!=null) {
-       	    	fw.write(list[x]+"/");
+         String s1 ;
+         s1 = file.getAbsolutePath();
+         FileReader fr = new FileReader(s1+"\\"+"StoresDB.txt");
+         BufferedReader br = new BufferedReader(fr);
+     	 FileWriter fw = new FileWriter(s1+"\\"+"StoresDB.txt", true);
+         String list[],s2;
+         while ((s2 = br.readLine()) != null) { // read a line
+         	list = s2.split("/");
+        	if(list[0].equals(s)) {
+            fw.write("/"+c.getName());
+            fw.flush();
+            fw.close();
+             break;
+        	}
        	    }
-       	    fw.write("\r\n");
-               fw.flush();
-               fw.close();
-       		break;
-       	}
-         	//Store obj = new Store(list[0],list[1],list[2],list[3]);
-          }
           br.close(); 
-    }	
+	}
 	
     public Product[] setStoreOwner_P_DB() throws IOException {
     	size=0; 
