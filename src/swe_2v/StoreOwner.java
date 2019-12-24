@@ -43,14 +43,13 @@ public class StoreOwner {
 		s.AddCollaborator(c,s);
 	}
 	
-	public void UndoCollaboratorPrductAction(Collaborators c) throws IOException
+	public void UndoCollaboratorPrductAction(Collaborators c,int i) throws IOException
 	{
 
 		String[] history = new String[10];
 		String[] parsedData = new String[10];
 		history = c.getHistory();
-		for(int i =0 ;i<history.length ; i++)
-		{
+
 			parsedData = history[i].split("/");
 			if(parsedData[0]=="Add product")
 			{
@@ -72,16 +71,14 @@ public class StoreOwner {
 			   Product p = new Product(parsedData[1],parsedData[2],price,parsedData[4],parsedData[5],quantity);
 			   x.AddProduct(p);		
 			}
-		}
 	}
-	public void UndoCollaboratorOfferAction(Collaborators c) throws IOException
+	public void UndoCollaboratorOfferAction(Collaborators c,int i) throws IOException
 	{
 		String[] history = new String[10];
 		String[] parsedData = new String[10];
 		history = c.getHistory();
-		for(int i =0 ;i<history.length ; i++)
-		{
-			parsedData = history[i].split("/");
+		
+		    parsedData = history[i].split("/");
 			if(parsedData[0]=="Add offer")
 			{
 				
@@ -101,7 +98,6 @@ public class StoreOwner {
 				lb.addOffer(parsedData[1], oldOffer);
 
 			}
-		}
 	}
 	
 }
