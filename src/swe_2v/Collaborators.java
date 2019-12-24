@@ -54,16 +54,13 @@ public class Collaborators{
 			history[size++]="Delete offer/"+ nameOftheProduct+"/"+oldOffer;
 			
 		}
-		public void AddProduct(Product p) throws IOException {
+		public boolean AddProduct(Product p) throws IOException {
+			boolean x=false;
 			AdminstratorController ac = new AdminstratorController();
 			if(ac.PermissionProduct(p)) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Please Enter Quantity");
-			int q = sc.nextInt(); 
-			p.setQuantity(q);
+			x = true; 	
 			StoreOwnerController pd = new StoreOwnerController();
 			pd.AddProduct(p);
-			System.out.println("Product Added");	
 			activity[size++]="Add product";
 			// updating history with name of the product so the storeowner can search
 			//with the name of the product so he can UNDO this action
@@ -71,9 +68,10 @@ public class Collaborators{
 			/*ProductDB obj = new ProductDB();
 			obj.AddProduct(p);*/
 			}else{
+				x = false;  
 				activity[size++]="Try To Add product";
-				System.out.println("Permission denied");
 			}
+			return x;
 		}
 		public void editProduct(String nameOftheProduct,int Price)
 		{
@@ -92,8 +90,8 @@ public class Collaborators{
 			StoreOwnerController x = new StoreOwnerController();
 			p = x.GetProduct(nameOftheProduct);
 			x.DeleteProduct(nameOftheProduct);
-			  String str = Integer.toString(p.getPrice()); 
-		      String str1 = Integer.toString(p.getQuantity());
+			String str = Integer.toString(p.getPrice()); 
+		    String str1 = Integer.toString(p.getQuantity());
 			history[size++]= "Delete product/" +p.getName()+"/"+p.getID()+"/"+str+"/"+p.getCategory()+"/"+p.getBrandName()+"/"+str1;
 			
 		}
@@ -104,8 +102,8 @@ public class Collaborators{
 		}
 		public void ShowStatistics() {
 			activity[size++]="Show Statistics";
-		    System.out.println("number of users viewed the store’s products : "+nOfUsersViewedStoresProduct);
-		    System.out.println("number of user buy a store’s produce : "+nOfUsersBuyStoresProducts);
+		    System.out.println("number of users viewed the storeâ€™s products : "+nOfUsersViewedStoresProduct);
+		    System.out.println("number of user buy a storeâ€™s produce : "+nOfUsersBuyStoresProducts);
 		    System.out.println("current sold out products  : "+SoldOutProducts);
 		}	
 		
