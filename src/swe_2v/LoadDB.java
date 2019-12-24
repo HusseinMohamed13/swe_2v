@@ -225,7 +225,7 @@ public void AddtohistoryDB(String []history) throws IOException
 	File file=new File("");
     String s ;
     s = file.getAbsolutePath();
-    FileWriter fw = new FileWriter(s+"\\"+"historyDB.txt", true);
+    FileWriter fw = new FileWriter(s+"\\"+"historyDB.txt", false);
     for(int i=0;i<history.length;i++)
     {
     	fw.write(history[i] +"\r\n");
