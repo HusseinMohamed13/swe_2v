@@ -9,12 +9,13 @@ public class main {
     static UserController uc = new UserController();
 	static AdminstratorController ac = new AdminstratorController();
 	static StoreOwner so = new StoreOwner();
+	static Collaborators c = new Collaborators();
 	static User u ;
 	public static void main(String[] args) throws IOException {
 		while(true) {
 		Scanner sc = new Scanner(System.in);
 		int x;
-		System.out.println("Please enter 1 to login as customer or storeOwner:");
+		System.out.println("Please enter 1 to login as customer or storeOwner or collaborator:");
 		System.out.println("Please enter 2 to register as customer or storeOwner:");
 		System.out.println("Please enter 3 to addproduct as adminstrator:");
 		System.out.println("Please enter 4 to addbrand as adminstrator:");
@@ -114,12 +115,15 @@ public class main {
 	 	    	else if(u.getUsertype().equals("storeowner")) {
 	 	    		boolean exit = false;
 	 	    		while(!exit) {
+	 	    			
 	 	    		System.out.println("Please enter 1 to addproduct :");
 			 		System.out.println("Please enter 2 to addnewstore :");
 			 		System.out.println("Please enter 3 to show statistics :");	
 			 		System.out.println("Please enter 4 to add Collabrator :");
-			 		System.out.println("Please enter 5 to search product in System:");
-			 		System.out.println("Please enter 6 to Exit:");
+			 		System.out.println("Please enter 5 to search product in System :");
+			 		System.out.println("Please enter 6 to undo collaborator product action :");
+			 		System.out.println("Please enter 7 to undo collaborator offer action :");
+			 		System.out.println("Please enter 8 to Exit:");
 			 		Scanner sc91 = new Scanner(System.in);
 		 			int x2;
 		 			x2 = sc91.nextInt();
@@ -176,13 +180,13 @@ public class main {
 		 				System.out.println("Enter Collaborator Id");
 		 				Scanner sc87 = new Scanner(System.in);
 		 				String s23 = sc87.next();
-		 				Collaborators c = new Collaborators();
-		 				c.setName(s23);
+		 				Collaborators c1 = new Collaborators();
+		 				c1.setName(s23);
 		 				System.out.println("Enter Store Name");
 		 				s23 = sc87.next();
 		 				Store s31 = new Store();
 		 				s31.setName(s23);
-		 				so.AddCollaborator(c, s31);
+		 				so.AddCollaborator(c1, s31);
 		 				break;
 		 			case 5:
 		 				System.out.println("Please enter name to search:");
@@ -218,12 +222,116 @@ public class main {
 		 			    }
 		 				break;
 		 			case 6:
+		 				String history[] = new String[10];
+		 				history = c.getHistory();
+		 				for(int i =0 ;i<history.length ; i++) {
+		 					System.out.println(i+" : "+history[i]);
+		 				}
+		 				System.out.println("Please index to undo this action:");
+		 				Scanner sc94 = new Scanner(System.in);
+						int indx = sc94.nextInt();
+		 				so.UndoCollaboratorPrductAction(c, indx);
 		 				exit = true;
+		 			case 7:
+		 				String history1[] = new String[10];
+		 				history1 = c.getHistory();
+		 				for(int i =0 ;i<history1.length ; i++) {
+		 					System.out.println(i+" : "+history1[i]);
+		 				}
+		 				System.out.println("Please index to undo this action:");
+		 				Scanner sc95 = new Scanner(System.in);
+						int indx1 = sc95.nextInt();
+		 				so.UndoCollaboratorOfferAction(c, indx1);
+		 				exit = true;
+		 			case 8:
+		 				exit = true;	
 		 				break;
 		 			default:	
 		 			}
 	 	    	}
 	 	      }
+	 	    else if(u.getUsertype().equals("collaborator")) {
+	 	    	boolean exit = false;
+ 	    		while(!exit) {
+ 	    		System.out.println("Please enter 1 to add product :");
+		 		System.out.println("Please enter 2 to edit product :");
+		 		System.out.println("Please enter 3 to delete product :");
+		 		System.out.println("Please enter 4 to add offer :");
+		 		System.out.println("Please enter 5 to edit offer :");
+		 		System.out.println("Please enter 6 to delete offer :");
+		 		System.out.println("Please enter 7 to Exit:");
+		 		Scanner sc91 = new Scanner(System.in);
+	 			int x2;
+	 			x2 = sc91.nextInt();
+	 			switch(x2) {
+	 			case 1:
+	 				Scanner sc6 = new Scanner(System.in);
+	 				String s61,s62,s63;
+	 				int price6;
+	 				System.out.println("Please enter Product Name:");
+	 				s61=sc6.nextLine();
+	 				System.out.println("Please enter ID:");
+	 				s62=sc6.nextLine();
+	 				System.out.println("Please enter Price:");
+	 				price6=sc6.nextInt();
+	 				Scanner sc7 = new Scanner(System.in);
+	 				System.out.println("Please enter Category:");
+	 				s63=sc7.nextLine();
+	 				System.out.println("Please enter BrandName:");
+	 				String s6=sc7.nextLine();
+	 				System.out.println("Please Enter Quantity");
+	 				int q = sc.nextInt(); 
+	 				Product p1 = new Product(s61,s62,price6,s63,s6,q);
+	 				if(c.AddProduct(p1)) {
+	 				System.out.println("Product Added");	
+	 				}else {
+	 					System.out.println("Permission denied");
+	 				}
+	 				break;
+	 			case 2:
+	 				Scanner sc73 = new Scanner(System.in);
+	 				System.out.println("Please enter Product name:");
+	 				String nameOftheProduct=sc73.nextLine();
+	 				System.out.println("Please enter Price:");
+	 				int price = sc73.nextInt();
+	 				c.editProduct(nameOftheProduct, price);
+	 				break;
+	 			case 3:
+	 				Scanner sc74 = new Scanner(System.in);
+	 				System.out.println("Please enter Product name:");
+	 			    nameOftheProduct = sc74.nextLine();
+	 			    c.deleteProduct(nameOftheProduct);
+	 				break;
+	 			case 4:
+	 				Scanner sc75 = new Scanner(System.in);
+	 				System.out.println("Please enter Product name:");
+	 				nameOftheProduct=sc75.nextLine();
+	 				System.out.println("Please enter offer:");
+	 				int offer = sc75.nextInt();
+	 				c.AddOffer(nameOftheProduct, offer);
+	 				break;
+	 			case 5:
+	 				Scanner sc76 = new Scanner(System.in);
+	 				System.out.println("Please enter Product name:");
+	 				nameOftheProduct=sc76.nextLine();
+	 				System.out.println("Please enter offer:");
+	 				int newoffer = sc76.nextInt();
+	 				c.editOffer(nameOftheProduct, newoffer);
+	 				break;
+	 			case 6:
+	 				Scanner sc77 = new Scanner(System.in);
+	 				System.out.println("Please enter Product name:");
+	 				nameOftheProduct=sc77.nextLine();
+	 				c.deleteOffer(nameOftheProduct);
+	 				break;
+	 			case 7:
+	 				exit = true;
+	 				break;
+	 			default:
+	 				break;
+	 			}
+	 	       } 
+	 	        }
 	 	    }else {
 	 	    	System.out.println("invaild Username or Password");
 	 	    }
